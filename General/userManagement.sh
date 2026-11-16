@@ -19,8 +19,10 @@ changePasswords() {
     userArray=($users)
     for user in "${userArray[@]}"; do
         # bash "./scripts/modules/damnit.sh" | sudo passwd "$user" >> "./logs/latest.log"
-        echo "$user:Cyb$3c101" | chpasswd >> "./logs/latest.log"
-        echo "changed password for $user to Cyb$3c101"
+        if [[ "$user" != "$SUDO_USER" ]]; then
+            echo "$user:Cyb$3c101" | chpasswd >> "./logs/latest.log"
+            echo "changed password for $user to Cyb$3c101"
+        fi
     done
     passwd -l root >> "./logs/latest.log"
 }
